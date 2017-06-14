@@ -21,11 +21,36 @@
     </dependency>
   </dependencies>
 
+  <!--Run with: java -cp target/ws-client-1.0-SNAPSHOT.jar com.jee6.examples.WebServiceTest-->
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <!--Plugin for importing wsdl file-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <!--<sourceDestDir>src/main/java</sourceDestDir>-->
+          <!--<keep>true</keep>-->
+          <wsdlDirectory>../wsdl</wsdlDirectory>
+          <wsdlFiles>
+            <wsdlFile>HelloWorldService.wsdl</wsdlFile>
+          </wsdlFiles>
+          <!-- Needed with JAXP 1.5 -->
+          <vmArgs>
+            <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+          </vmArgs>
+        </configuration>
       </plugin>
     </plugins>
   </build>
